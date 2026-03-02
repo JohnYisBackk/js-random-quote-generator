@@ -4,7 +4,7 @@ Vanilla JavaScript random quote generator with smooth animations, clipboard copy
 and localStorage support.
 
 ## Live Demo 🚀
-👉 https://YOUR_USERNAME.github.io/js-random-quote-generator/
+👉 https://johnyisbackk.github.io/js-random-quote-generator/
 
 ## Features
 - Random quote generation
