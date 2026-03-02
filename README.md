@@ -10,7 +10,6 @@ and localStorage support.
 - Random quote generation
 - Prevents the same quote from showing twice in a row
 - Fade-out / fade-in animations
-- Shine gradient text effect
 - Copy quote to clipboard
 - Last quote saved in localStorage
 - Fully responsive (mobile-friendly)
