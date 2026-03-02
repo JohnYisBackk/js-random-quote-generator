@@ -1,0 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+body {
+  min-height: 100vh;
+  background: #0b1020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 520px;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px;
+}
+.title {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.card {
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  min-height: 140px;
+  flex-direction: column;
+  justify-content: center;
+}
+.quote {
+  font-size: 1.25em;
+  opacity: 0.8;
+}
+.author {
+  font-weight: bold;
+  opacity: 0.8;
+}
+.buttons {
+  display: flex;
+  margin-top: 15px;
+  gap: 12px;
+}
+.btn {
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #e5e7eb;
+  font-weight: bold;
+}
+.btn:hover {
+  opacity: 0.9;
+}
+.btn.primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.card.fade-out {
+  animation: quoteOut 0.22s ease forwards;
+}
+
+.card.fade-in {
+  animation: quoteInLux 0.35s ease forwards;
+}
+
+@keyframes quoteOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+}
+
+@keyframes quoteInLux {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* =========================
+   Mobile responsive (<= 520px)
+   ========================= */
+
+@media (max-width: 520px) {
+  body {
+    padding: 16px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 18px;
+    border-radius: 15px;
+  }
+  .title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  .card {
+    padding: 16px;
+    min-height: 120px;
+  }
+  .quote {
+    font-size: 1.05em;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn {
+    width: 100%;
+    padding: 14px 16px;
+  }
+}
