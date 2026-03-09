@@ -1,109 +1,127 @@
-// 1) DOM elements
+// ===============================
+// 1️⃣ GET ELEMENTS FROM DOM
+// ===============================
+
 const quoteText = document.getElementById("quoteText");
 const quoteAuthor = document.getElementById("quoteAuthor");
+
 const newQuoteBtn = document.getElementById("newQuoteBtn");
-const copyBtn = document.getElementById("copyBtn");
-const quoteCard = document.getElementById("quoteCard");
+const copyQuoteBtn = document.getElementById("copyQuoteBtn");
 
-let lastIndex = null;
+const themeToggle = document.getElementById("themeToggle");
+const quoteContainer = document.getElementById("quoteContainer");
 
-// 2) Quotes data
-let quotes = [
+// ===============================
+// 2️⃣ QUOTES ARRAY
+// ===============================
+
+const quotes = [
   {
-    text: "Simplicity is the soul of efficiency.",
-    author: "Austin Freeman",
-  },
-  {
-    text: "First, solve the problem. Then, write the code.",
-    author: "John Johnson",
-  },
-  {
-    text: "Experience is the name everyone gives to their mistakes.",
-    author: "Oscar Wilde",
-  },
-  {
-    text: "Code is like humor. When you have to explain it, it’s bad.",
-    author: "Cory House",
-  },
-  {
-    text: "Programs must be written for people to read, and only incidentally for machines to execute.",
+    quote:
+      "Programs must be written for people to read, and only incidentally for machines to execute.",
     author: "Harold Abelson",
   },
   {
-    text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-    author: "Martin Fowler",
+    quote: "First, solve the problem. Then, write the code.",
+    author: "John Johnson",
   },
   {
-    text: "The best way to get a project done faster is to start sooner.",
-    author: "Jim Highsmith",
+    quote: "Experience is the name everyone gives to their mistakes.",
+    author: "Oscar Wilde",
+  },
+  {
+    quote: "Simplicity is the soul of efficiency.",
+    author: "Austin Freeman",
+  },
+  {
+    quote: "Code is like humor. When you have to explain it, it’s bad.",
+    author: "Cory House",
+  },
+  {
+    quote: "Fix the cause, not the symptom.",
+    author: "Steve Maguire",
+  },
+  {
+    quote: "Before software can be reusable it first has to be usable.",
+    author: "Ralph Johnson",
+  },
+  {
+    quote: "Make it work, make it right, make it fast.",
+    author: "Kent Beck",
+  },
+  {
+    quote: "The best way to predict the future is to invent it.",
+    author: "Alan Kay",
+  },
+  {
+    quote: "Small daily improvements over time lead to stunning results.",
+    author: "Robin Sharma",
   },
 ];
+// ===============================
+// 3️⃣ GENERATE RANDOM QUOTE
+// ===============================
 
-// 3) Function to get a random index
-function getRandomIndex(max) {
-  return Math.floor(Math.random() * max);
-}
+function generateRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
 
-// 4) Function to display a random quote
-function showRandomQuote() {
-  if (quotes.length === 0) return;
+  // pridanie animacie
+  quoteContainer.classList.remove("animate");
+  void quoteContainer.offsetWidth;
 
-  let index = getRandomIndex(quotes.length);
-  while (index === lastIndex && quotes.length > 1) {
-    index = getRandomIndex(quotes.length);
-  }
-  lastIndex = index;
-
-  const quote = quotes[index];
-
-  quoteCard.classList.remove("fade-in");
-  quoteCard.classList.add("fade-out");
-
-  setTimeout(() => {
-    quoteText.textContent = quote.text;
-    quoteAuthor.textContent = `— ${quote.author}`;
-
-    localStorage.setItem("lastQuote", JSON.stringify(quote));
-
-    // fade-in card
-    quoteCard.classList.remove("fade-out");
-    quoteCard.classList.add("fade-in");
-  }, 220);
-}
-
-// 5) Function to copy the current quote to the clipboard
-function copyQuote() {
-  if (!quoteText.textContent || quoteText.textContent.includes("click")) return;
-
-  const text = quoteText.textContent;
-  const author = quoteAuthor.textContent;
-  const fullQuote = `${text} ${author}`;
-
-  navigator.clipboard.writeText(fullQuote);
-
-  copyBtn.textContent = "Copied!";
-  setTimeout(() => {
-    copyBtn.textContent = "Copy";
-  }, 1500);
-}
-
-// 6) Event listeners for buttons
-newQuoteBtn.addEventListener("click", showRandomQuote);
-copyBtn.addEventListener("click", copyQuote);
-
-// 7) Load the last displayed quote on page load
-function loadLastQuote() {
-  const saved = localStorage.getItem("lastQuote");
-
-  if (!saved) return;
-
-  const quote = JSON.parse(saved);
-  quoteText.textContent = quote.text;
+  quoteText.textContent = quote.quote;
   quoteAuthor.textContent = `— ${quote.author}`;
 
-  quoteCard.classList.remove("fade-out");
-  quoteCard.classList.add("fade-in");
+  quoteContainer.classList.add("animate");
 }
 
-// Initialize the app by loading the last quote
-loadLastQuote();
+// ===============================
+// 4️⃣ COPY QUOTE
+// ===============================
+
+function copyQuote() {
+  const fullQuote = `${quoteText.textContent} ${quoteAuthor.textContent}`;
+
+  navigator.clipboard.writeText(fullQuote);
+  copyQuoteBtn.textContent = "Copied!";
+
+  //pridanie animacie
+  quoteText.classList.add("quote-pulse");
+  quoteAuthor.classList.remove("quote-pulse");
+
+  setTimeout(() => {
+    quoteText.classList.remove("quote-pulse");
+    quoteAuthor.classList.remove("quote-pulse");
+  }, 2000);
+
+  setTimeout(() => {
+    copyQuoteBtn.textContent = "Copy Quote";
+  }, 2000);
+}
+
+// ===============================
+// 5️⃣ TOGGLE THEME
+// ===============================
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
+}
+
+// ===============================
+// 6️⃣ EVENT LISTENERS
+// ===============================
+
+newQuoteBtn.addEventListener("click", generateRandomQuote);
+copyQuoteBtn.addEventListener("click", copyQuote);
+themeToggle.addEventListener("click", toggleTheme);
+
+// ===============================
+// 7️⃣ INIT
+// ===============================
+
+generateRandomQuote();
+
